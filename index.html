@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aster Theatre - WM1 Project</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="venue.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Aster Theatre</h1>
+      <p>Interactive venue ticketing - Web &amp; Mobile I</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <p class="progress-note"><strong>Project in progress:</strong> the venue layout and data model are ready. Seat selection and the cart will be added in later stages.</p>
+
+    <div class="page-layout">
+      <section class="card" aria-labelledby="layout-title">
+        <h2 id="layout-title">Venue layout plan</h2>
+        <p>The theatre has three sections, with two aisles between the seat blocks.</p>
+        <img class="venue-plan" src="assets/venue-plan.svg" alt="Layout sketch: stage at the top, Orchestra rows A to D, Dress Circle rows E to H and Balcony rows J to M. Each section has three blocks separated by aisles.">
+        <p class="image-note">This is the layout sketch. Individual seat buttons will replace it in the next stage.</p>
+      </section>
+
+      <aside>
+        <section class="card" aria-labelledby="prices-title">
+          <h2 id="prices-title">Sections and prices</h2>
+          <table>
+            <thead><tr><th scope="col">Section</th><th scope="col">Rows</th><th scope="col">Price</th></tr></thead>
+            <tbody id="section-list"></tbody>
+          </table>
+          <p id="seat-summary"></p>
+        </section>
+        <section class="card" aria-labelledby="details-title">
+          <h2 id="details-title">Seat details</h2>
+          <p>After seat selection is implemented, clicking a seat will show its section, row, number and price here.</p>
+          <p>Clicking a seat will only inspect it. A separate ADD TO CART button will add the ticket.</p>
+        </section>
+        <section class="card" aria-labelledby="cart-title">
+          <h2 id="cart-title">Cart</h2>
+          <p>The ticket list, total price and remove controls are planned for the cart stage.</p>
+        </section>
+      </aside>
+    </div>
+
+    <section class="card" aria-labelledby="progress-title">
+      <h2 id="progress-title">Development plan</h2>
+      <ol>
+        <li><strong>Layout and data:</strong> choose the venue, sections, prices and seat structure.</li>
+        <li><strong>Seat interaction:</strong> generate seats and show inspection details and states.</li>
+        <li><strong>Navigation and cart:</strong> add pan/zoom buttons, ticket selection and localStorage.</li>
+        <li><strong>Testing:</strong> check responsiveness and edge cases, then prepare the demonstration and report.</li>
+      </ol>
+    </section>
+    <noscript><p>Enable JavaScript to display the section prices and seat counts.</p></noscript>
+  </main>
+
+  <footer class="container"><p>Farid Guliyev - Web &amp; Mobile I</p></footer>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 570" role="img" aria-labelledby="title description">
+  <title id="title">Aster Theatre layout sketch</title>
+  <desc id="description">Stage above three sections: Orchestra, Dress Circle and Balcony. Two aisles divide each section into three blocks.</desc>
+  <rect width="600" height="570" rx="6" fill="#f7f9fb"/>
+  <rect x="120" y="28" width="360" height="65" rx="8" fill="#24466b"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle" font-size="18">
+    <text x="300" y="68" fill="white">STAGE</text>
+    <g fill="#263241">
+      <text x="300" y="134">Orchestra - rows A-D</text>
+      <text x="300" y="274">Dress Circle - rows E-H</text>
+      <text x="300" y="414">Balcony - rows J-M</text>
+    </g>
+  </g>
+  <g fill="#d6ae6e" stroke="#a27d42">
+    <rect x="40" y="150" width="150" height="85" rx="4"/><rect x="225" y="150" width="150" height="85" rx="4"/><rect x="410" y="150" width="150" height="85" rx="4"/>
+  </g>
+  <g fill="#83ae9b" stroke="#537a68">
+    <rect x="40" y="290" width="150" height="85" rx="4"/><rect x="225" y="290" width="150" height="85" rx="4"/><rect x="410" y="290" width="150" height="85" rx="4"/>
+  </g>
+  <g fill="#a8add0" stroke="#7d83aa">
+    <rect x="40" y="430" width="150" height="85" rx="4"/><rect x="225" y="430" width="150" height="85" rx="4"/><rect x="410" y="430" width="150" height="85" rx="4"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#344352" text-anchor="middle">
+    <text x="115" y="198">Seats 1-8</text><text x="300" y="198">Seats 9-16</text><text x="485" y="198">Seats 17-24</text>
+    <text x="115" y="338">Seats 1-8</text><text x="300" y="338">Seats 9-16</text><text x="485" y="338">Seats 17-24</text>
+    <text x="115" y="478">Seats 1-8</text><text x="300" y="478">Seats 9-16</text><text x="485" y="478">Seats 17-24</text>
+    <text x="207" y="545">Aisle</text><text x="393" y="545">Aisle</text>
+  </g>
+</svg>
