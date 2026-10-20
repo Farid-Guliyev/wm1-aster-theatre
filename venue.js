@@ -1,5 +1,5 @@
 // Each section has 4 rows, with 24 seats in each row.
-// Seat numbers will run from 1 to 24, with aisles after seats 8 and 16.
+// Seat numbers run from 1 to 24, with aisles after seats 8 and 16.
 // Prices are stored in pence to make total calculations exact.
 const venue = {
   name: "Aster Theatre",
@@ -42,3 +42,28 @@ const venue = {
     "balcony-L-1", "balcony-L-12", "balcony-M-20", "balcony-M-21"
   ]
 };
+
+// Turn the section and row data into individual seat records.
+function createSeats() {
+  const seats = [];
+
+  for (const section of venue.sections) {
+    for (const row of section.rows) {
+      for (let number = 1; number <= venue.seatsPerRow; number++) {
+        const id = section.id + "-" + row + "-" + number;
+        seats.push({
+          id: id,
+          sectionId: section.id,
+          sectionName: section.name,
+          row: row,
+          number: number,
+          category: section.category,
+          price: section.price,
+          unavailable: venue.unavailableSeats.includes(id)
+        });
+      }
+    }
+  }
+
+  return seats;
+}

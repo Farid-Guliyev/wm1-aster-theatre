@@ -1,4 +1,4 @@
-/* Basic page layout. The interactive seat styles will be added later. */
+/* Page layout and seat inspection states. */
 * {
   box-sizing: border-box;
 }
@@ -14,7 +14,7 @@ body {
 
 .container {
   width: 92%;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -42,12 +42,13 @@ header p {
 
 .page-layout {
   display: grid;
-  grid-template-columns: 1.65fr 1fr;
+  grid-template-columns: minmax(0, 2.4fr) minmax(280px, 1fr);
   gap: 20px;
   align-items: start;
 }
 
 .card {
+  min-width: 0;
   margin-bottom: 20px;
   padding: 22px;
   border: 1px solid #dce1e7;
@@ -69,15 +70,178 @@ p {
   margin-bottom: 0;
 }
 
-.venue-plan {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin: 18px 0;
+[hidden] {
+  display: none !important;
 }
 
-.image-note {
+.map-help {
   color: #5c6673;
+  font-size: 14px;
+}
+
+.seat-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+.seat-legend li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+}
+
+.legend-box {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #6a7987;
+  border-radius: 3px;
+}
+
+.legend-box.available {
+  background: #83ae9b;
+}
+
+.legend-box.inspecting {
+  outline: 2px solid #24466b;
+  outline-offset: 2px;
+}
+
+.map-scroll {
+  overflow-x: auto;
+  padding: 8px 0;
+  border: 1px solid #dce1e7;
+  border-radius: 5px;
+  background: #f7f9fb;
+}
+
+.venue-map {
+  min-width: 760px;
+  padding: 16px 8px;
+}
+
+.stage {
+  width: 55%;
+  margin: 0 auto 24px;
+  padding: 18px;
+  border-radius: 5px 5px 18px 18px;
+  background: #24466b;
+  color: white;
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+.venue-section {
+  margin-bottom: 24px;
+}
+
+.venue-section:last-child {
+  margin-bottom: 0;
+}
+
+.venue-section h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.seat-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.row-label {
+  flex: 0 0 20px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.seat {
+  flex: 0 0 24px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid #63717d;
+  border-radius: 5px 5px 2px 2px;
+  background: var(--seat-color);
+  color: #172533;
+  font: 12px Arial, sans-serif;
+  cursor: pointer;
+}
+
+.seat.aisle-before {
+  margin-left: 12px;
+}
+
+.seat:hover {
+  border-color: #172533;
+  box-shadow: 0 0 0 1px #172533;
+}
+
+.seat.unavailable, .legend-box.unavailable {
+  background: #e1e4e8;
+  color: #525e6a;
+}
+
+.seat.inspecting {
+  outline: 2px solid #24466b;
+  outline-offset: 2px;
+}
+
+.seat:focus-visible {
+  outline: 2px dashed #172533;
+  outline-offset: 2px;
+}
+
+.map-scroll:focus-visible, a:focus-visible {
+  outline: 3px solid #24466b;
+  outline-offset: 3px;
+}
+
+.inspection-summary {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+a {
+  color: #24466b;
+}
+
+.seat-details {
+  margin: 0;
+}
+
+.seat-details div {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 8px 0;
+  border-bottom: 1px solid #dce1e7;
+}
+
+.seat-details dt {
+  color: #5c6673;
+}
+
+.seat-details dd {
+  margin: 0;
+  text-align: right;
+  font-weight: bold;
+}
+
+.detail-message {
+  margin-top: 16px;
   font-size: 14px;
 }
 
@@ -117,11 +281,13 @@ footer {
   font-size: 14px;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 1000px) {
   .page-layout {
     grid-template-columns: 1fr;
   }
+}
 
+@media (max-width: 760px) {
   .card {
     padding: 18px;
   }

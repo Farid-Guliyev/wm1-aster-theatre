@@ -10,12 +10,23 @@
 
 A separate functional prototype was explored during planning. This repository starts with the simpler layout and data model so the implementation can be developed and understood step by step. The prototype is not the submitted version.
 
+## 20 October 2026 - seat generation and inspection
+
+- Added `createSeats()` to expand the section and row data into 288 seat records.
+- Replaced the sketch on the page with individual seat buttons and row labels.
+- Kept stable seat IDs in the form section-row-number and gaps for the two aisles.
+- Added inspection details for section, row, seat number, category, price and availability.
+- Added styles for available, inspected and unavailable seats. Selecting another seat clears the previous inspection outline.
+- Kept inspection separate from ticket selection. Cart actions are still pending.
+- Added arrow-key navigation, descriptive button labels, sideways map scrolling and a link to the details panel.
+- Checked the generated IDs and prices, inspection behavior, unavailable seats, keyboard and touch interaction, and five browser widths.
+
 ## Next working session
 
-- Review how the venue object and loops work.
-- Replace the sketch with generated seat buttons.
-- Give each seat a stable ID based on section, row and number.
-- Check that the generated seats match the model before adding inspection.
+- Add Zoom In, Zoom Out, the four direction buttons and Reset/Center View.
+- Add the explicit ADD TO CART action, an in-cart state and duplicate prevention.
+- Add cart removal and total-price calculation, keeping the map synchronized.
+- Store and restore cart IDs using localStorage.
 
 ## Submission reminders
 
