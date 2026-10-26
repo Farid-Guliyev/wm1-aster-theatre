@@ -21,12 +21,21 @@ A separate functional prototype was explored during planning. This repository st
 - Added arrow-key navigation, descriptive button labels, sideways map scrolling and a link to the details panel.
 - Checked the generated IDs and prices, inspection behavior, unavailable seats, keyboard and touch interaction, and five browser widths.
 
+## 26 October 2026 - navigation and cart
+
+- Added the seven required map controls, with zoom limits, bounded movement and a full-map reset.
+- Replaced sideways scrolling with a map frame that fits the venue on resize. Keyboard focus brings offscreen seats into view when zoomed.
+- Added explicit ADD TO CART, disabled adding for unavailable or already selected seats, and guarded the handler against duplicates.
+- Added ticket removal, individual prices, an integer-pence total and synchronized in-cart seat styles.
+- Saved cart IDs using localStorage and restored valid selections on reload. Unknown, duplicate and unavailable saved IDs are ignored.
+- Added warnings for damaged or blocked storage and cart synchronization between open tabs.
+- Passed 25 browser checks covering the existing seat data and inspection, cart actions, persistence, navigation, keyboard use, five screen widths and emulated touch. Reviewed desktop and phone screenshots.
+
 ## Next working session
 
-- Add Zoom In, Zoom Out, the four direction buttons and Reset/Center View.
-- Add the explicit ADD TO CART action, an in-cart state and duplicate prevention.
-- Add cart removal and total-price calculation, keeping the map synchronized.
-- Store and restore cart IDs using localStorage.
+- Complete the final browser, device and responsive checks.
+- Consider optional wheel zoom and mouse dragging.
+- Prepare and record the demonstration, then finish the report with the final commit reference.
 
 ## Submission reminders
 

@@ -1,4 +1,4 @@
-/* Page layout and seat inspection states. */
+/* Page layout, seat states, map controls and cart. */
 * {
   box-sizing: border-box;
 }
@@ -115,17 +115,22 @@ p {
   outline-offset: 2px;
 }
 
-.map-scroll {
-  overflow-x: auto;
-  padding: 8px 0;
+#map-viewport {
+  position: relative;
+  height: 620px;
+  overflow: hidden;
   border: 1px solid #dce1e7;
   border-radius: 5px;
   background: #f7f9fb;
 }
 
 .venue-map {
-  min-width: 760px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 760px;
   padding: 16px 8px;
+  transform-origin: 0 0;
 }
 
 .stage {
@@ -194,6 +199,11 @@ p {
   color: #525e6a;
 }
 
+.seat.in-cart, .legend-box.in-cart {
+  background: #24466b;
+  color: white;
+}
+
 .seat.inspecting {
   outline: 2px solid #24466b;
   outline-offset: 2px;
@@ -204,9 +214,88 @@ p {
   outline-offset: 2px;
 }
 
-.map-scroll:focus-visible, a:focus-visible {
+button:focus-visible, a:focus-visible {
   outline: 3px solid #24466b;
   outline-offset: 3px;
+}
+
+button {
+  font: inherit;
+}
+
+.map-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.map-controls button, .cart-items button, .primary-button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #24466b;
+  border-radius: 4px;
+  color: #24466b;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.map-controls button:hover, .cart-items button:hover {
+  background: #eaf0f6;
+}
+
+.primary-button {
+  width: 100%;
+  background: #24466b;
+  color: white;
+  font-weight: bold;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.cart-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cart-items li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid #dce1e7;
+  font-size: 14px;
+}
+
+.cart-items span, .cart-items strong {
+  display: block;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0;
+  font-size: 18px;
+}
+
+.small-note, .storage-warning {
+  font-size: 14px;
+}
+
+.small-note {
+  color: #5c6673;
+}
+
+.storage-warning {
+  padding: 10px;
+  background: #fff5dc;
+  border-left: 3px solid #c18b2f;
 }
 
 .inspection-summary {
@@ -288,6 +377,10 @@ footer {
 }
 
 @media (max-width: 760px) {
+  #map-viewport {
+    height: 420px;
+  }
+
   .card {
     padding: 18px;
   }

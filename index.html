@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="venue.js" defer></script>
   <script src="script.js" defer></script>
+  <script src="navigation.js" defer></script>
 </head>
 <body>
   <header>
@@ -17,7 +18,7 @@
   </header>
 
   <main class="container">
-    <p class="progress-note"><strong>Project in progress:</strong> seats can now be inspected. Navigation controls and the cart will be added in the next stage.</p>
+    <p class="progress-note"><strong>Project in progress:</strong> map navigation and the saved ticket cart are now available. Final testing and the demonstration are next.</p>
 
     <div class="page-layout">
       <section class="card" aria-labelledby="layout-title">
@@ -26,10 +27,21 @@
         <ul class="seat-legend" aria-label="Seat states">
           <li><span class="legend-box available"></span>Available</li>
           <li><span class="legend-box inspecting"></span>Inspecting</li>
+          <li><span class="legend-box in-cart">✓</span>In cart</li>
           <li><span class="legend-box unavailable">×</span>Unavailable</li>
         </ul>
-        <p class="map-help" id="map-help">On smaller screens, scroll the map sideways. Keyboard: Tab into the seats, use the arrow keys to move, then Enter or Space to inspect.</p>
-        <div class="map-scroll" role="region" aria-label="Theatre seating map" aria-describedby="map-help" tabindex="0">
+        <div class="map-controls" role="group" aria-label="Map navigation">
+          <button type="button" id="zoom-in">Zoom In</button>
+          <button type="button" id="zoom-out">Zoom Out</button>
+          <button type="button" id="move-up">Move Up</button>
+          <button type="button" id="move-down">Move Down</button>
+          <button type="button" id="move-left">Move Left</button>
+          <button type="button" id="move-right">Move Right</button>
+          <button type="button" id="reset-view">Reset/Center View</button>
+        </div>
+        <p class="map-help" id="map-help">Zoom in for larger seats, then use the move buttons to move the map. Keyboard: Tab into the seats, use the arrow keys to move, then Enter or Space to inspect.</p>
+        <p id="zoom-level" class="map-help" role="status">Zoom: 100%</p>
+        <div id="map-viewport" role="region" aria-label="Theatre seating map" aria-describedby="map-help">
           <div class="venue-map">
             <div class="stage">STAGE</div>
             <div id="seat-sections"></div>
@@ -61,11 +73,17 @@
               <div><dt>Status</dt><dd id="detail-status"></dd></div>
             </dl>
             <p id="detail-message" class="detail-message"></p>
+            <button type="button" id="add-to-cart" class="primary-button">ADD TO CART</button>
           </div>
         </section>
         <section class="card" aria-labelledby="cart-title">
-          <h2 id="cart-title">Cart</h2>
-          <p id="cart-message">No tickets added. Cart actions will be implemented in the next stage.</p>
+          <h2 id="cart-title" tabindex="-1">Cart (<span id="cart-count">0</span>)</h2>
+          <p id="cart-message">No tickets added.</p>
+          <ul id="cart-items" class="cart-items"></ul>
+          <p class="cart-total">Total <strong id="cart-total">£0.00</strong></p>
+          <p id="cart-feedback" class="small-note" role="status" aria-atomic="true"></p>
+          <p id="save-note" class="small-note">Tickets are saved in this browser. This demo does not reserve seats.</p>
+          <p id="storage-warning" class="storage-warning" role="status" hidden></p>
         </section>
       </aside>
     </div>
