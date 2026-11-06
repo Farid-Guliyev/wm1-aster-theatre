@@ -15,7 +15,7 @@ function mapScale() {
   return fitScale * zoom;
 }
 
-// Leave a small margin for movement, but never allow the map to disappear.
+// Keep the map within reach.
 function limitPosition(position, viewportSize, mapSize) {
   const margin = 24;
   if (mapSize <= viewportSize) {
@@ -58,7 +58,7 @@ function moveMap(x, y) {
   drawMap();
 }
 
-// Keyboard focus can reach a seat outside the current view. Bring it back inside.
+// Keep the focused seat visible.
 function keepSeatVisible(button) {
   mapViewport.scrollLeft = 0;
   mapViewport.scrollTop = 0;
@@ -83,7 +83,7 @@ document.getElementById("move-left").addEventListener("click", () => moveMap(-60
 document.getElementById("move-right").addEventListener("click", () => moveMap(60, 0));
 document.getElementById("reset-view").addEventListener("click", resetView);
 
-// Zoom around the pointer. Leave browser zoom shortcuts available.
+// Zoom at the mouse position.
 mapViewport.addEventListener("wheel", event => {
   if (event.ctrlKey || event.metaKey || event.deltaY === 0) return;
   event.preventDefault();
@@ -103,7 +103,7 @@ window.addEventListener("pointermove", event => {
   if (!drag || event.pointerId !== drag.id) return;
   const dx = event.clientX - drag.x;
   const dy = event.clientY - drag.y;
-  // Small hand movements should still count as an ordinary seat click.
+  // Small movements still count as a click.
   if (!drag.moved && Math.hypot(dx, dy) < 6) return;
   if (!drag.moved) {
     drag.moved = true;
@@ -142,7 +142,7 @@ mapViewport.addEventListener("click", event => {
   event.stopImmediatePropagation();
 }, true);
 
-// Fit the complete venue again when the viewport changes, including phone rotation.
+// Fit the map after resizing.
 new ResizeObserver(() => {
   finishDrag();
   resetView();

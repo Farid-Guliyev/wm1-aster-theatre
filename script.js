@@ -103,7 +103,7 @@ function updateSeatStates() {
     (seats.length - unavailableCount - cartIds.size) + " available.";
 }
 
-// Inspection changes the details and outline. Only the Add button adds a ticket.
+// Seat clicks only show details.
 function inspectSeat(seat) {
   inspectedSeatId = seat.id;
   updateSeatStates();
@@ -126,9 +126,9 @@ function showSeatDetails() {
   const addButton = document.getElementById("add-to-cart");
   addButton.disabled = seat.unavailable || inCart;
   addButton.textContent = seat.unavailable ? "UNAVAILABLE" : inCart ? "ALREADY IN CART" : "ADD TO CART";
-  const message = seat.unavailable ? "This seat is unavailable and cannot be added to the cart." :
-    inCart ? "This ticket is in your cart. Use Remove in the cart to release it." :
-    "This seat is available. Use ADD TO CART to select this ticket.";
+  const message = seat.unavailable ? "This seat is unavailable." :
+    inCart ? "Already in your cart. Use Remove to take it out." :
+    "Press ADD TO CART to add this seat.";
   document.getElementById("detail-message").textContent = message;
   document.getElementById("inspection-summary").textContent =
     seat.sectionName + ", row " + seat.row + ", seat " + seat.number + " - " +
@@ -151,14 +151,14 @@ function loadCart() {
       if (!data || data.version !== 1 || !Array.isArray(data.seatIds)) {
         throw new Error("Invalid saved cart");
       }
-      // Use current venue data for availability and prices, not stored values.
+      // Check saved seats against the venue data.
       for (const id of data.seatIds) {
         if (seats.some(seat => seat.id === id && !seat.unavailable)) cartIds.add(id);
       }
     }
     storageWarning("");
   } catch (error) {
-    storageWarning("The saved cart could not be loaded. You can still select tickets, but check the cart before continuing.");
+    storageWarning("Could not load the saved cart. Please choose your seats again.");
   }
 }
 
@@ -167,7 +167,7 @@ function saveCart() {
     localStorage.setItem(cartStorageKey, JSON.stringify({ version: 1, seatIds: [...cartIds] }));
     storageWarning("");
   } catch (error) {
-    storageWarning("The cart could not be saved in this browser. Tickets may be lost when you reload or close the page.");
+    storageWarning("The cart could not be saved. It may be lost after a reload.");
   }
 }
 
@@ -220,12 +220,12 @@ function removeTicket(id) {
   saveCart();
   refreshSelection();
   document.getElementById("cart-feedback").textContent = seat.sectionName + " " + seat.row + seat.number + " removed from cart.";
-  // The clicked Remove button no longer exists, so give focus a useful destination.
+  // Keep keyboard focus in the cart.
   const nextRemove = document.querySelector("#cart-items button");
   (nextRemove || document.getElementById("cart-title")).focus({ preventScroll: true });
 }
 
-// One seat is in the Tab order; arrow keys move focus without inspecting.
+// Arrow keys move between seats.
 function moveSeatFocus(event, index) {
   const offsets = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -venue.seatsPerRow, ArrowDown: venue.seatsPerRow };
   if (!(event.key in offsets)) return;

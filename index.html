@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore Aster Theatre, inspect seats and build a ticket cart across three seating sections.">
+  <meta name="description" content="A theatre seat selection project.">
   <title>Aster Theatre - WM1 Project</title>
   <link rel="stylesheet" href="style.css">
   <script src="venue.js" defer></script>
@@ -21,8 +21,8 @@
   <main class="container">
     <div class="page-layout">
       <section class="card" aria-labelledby="layout-title">
-        <h2 id="layout-title">Choose a seat to inspect</h2>
-        <p>Click a seat to see its details and price. This does not add a ticket to the cart.</p>
+        <h2 id="layout-title">Choose a seat</h2>
+        <p>Click a seat to see its details, then press ADD TO CART.</p>
         <ul class="seat-legend" aria-label="Seat states">
           <li><span class="legend-box available"></span>Available</li>
           <li><span class="legend-box inspecting"></span>Inspecting</li>
@@ -38,8 +38,8 @@
           <button type="button" id="move-right">Move Right</button>
           <button type="button" id="reset-view">Reset/Center View</button>
         </div>
-        <p class="map-help" id="map-help">Zoom in for larger seats, then use the move buttons to move the map. Keyboard: Tab into the seats, use the arrow keys to move, then Enter or Space to inspect.</p>
-        <p class="map-help">Mouse: scroll over the map to zoom, or hold the left button and drag to move it.</p>
+        <p class="map-help" id="map-help">Use the buttons to zoom and move the map. Keyboard: Tab, arrow keys, then Enter or Space.</p>
+        <p class="map-help">Mouse: scroll to zoom, or drag to move the map.</p>
         <p id="zoom-level" class="map-help" role="status">Zoom: 100%</p>
         <div id="map-viewport" role="region" aria-label="Theatre seating map" aria-describedby="map-help">
           <div class="venue-map">
@@ -47,7 +47,7 @@
             <div id="seat-sections"></div>
           </div>
         </div>
-        <p class="inspection-summary" id="inspection-summary" role="status" aria-atomic="true">No seat inspected yet.</p>
+        <p class="inspection-summary" id="inspection-summary" role="status" aria-atomic="true">Choose a seat.</p>
         <a id="details-link" href="#details-title" hidden>View seat details</a>
       </section>
 
@@ -62,7 +62,7 @@
         </section>
         <section class="card" aria-labelledby="details-title">
           <h2 id="details-title" tabindex="-1">Seat details</h2>
-          <p id="details-empty">Choose a seat on the map to inspect it.</p>
+          <p id="details-empty">Pick a seat on the map.</p>
           <div id="seat-details" hidden>
             <dl class="seat-details">
               <div><dt>Section</dt><dd id="detail-section"></dd></div>
@@ -82,13 +82,13 @@
           <ul id="cart-items" class="cart-items"></ul>
           <p class="cart-total">Total <strong id="cart-total">£0.00</strong></p>
           <p id="cart-feedback" class="small-note" role="status" aria-atomic="true"></p>
-          <p id="save-note" class="small-note">Tickets are saved in this browser. This demo does not reserve seats.</p>
+          <p id="save-note" class="small-note">Saved in this browser. No real booking is made.</p>
           <p id="storage-warning" class="storage-warning" role="status" hidden></p>
         </section>
       </aside>
     </div>
 
-    <noscript><p>Enable JavaScript to display the venue and inspect seats.</p></noscript>
+    <noscript><p>Enable JavaScript to use the seat map.</p></noscript>
   </main>
 
   <footer class="container"><p>Farid Guliyev - Web &amp; Mobile I</p></footer>
