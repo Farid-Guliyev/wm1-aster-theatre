@@ -4,6 +4,8 @@ let fitScale = 1;
 let zoom = 1;
 let mapX = 0;
 let mapY = 0;
+let drag = null;
+let ignoreDragClick = false;
 
 function clamp(value, minimum, maximum) {
   return Math.max(minimum, Math.min(maximum, value));
@@ -41,12 +43,10 @@ function resetView() {
   drawMap();
 }
 
-function changeZoom(amount) {
+function changeZoom(amount, centreX = mapViewport.clientWidth / 2, centreY = mapViewport.clientHeight / 2) {
   const oldScale = mapScale();
-  zoom = clamp(zoom + amount, 1, 4);
+  zoom = clamp(Math.round((zoom + amount) * 100) / 100, 1, 4);
   const ratio = mapScale() / oldScale;
-  const centreX = mapViewport.clientWidth / 2;
-  const centreY = mapViewport.clientHeight / 2;
   mapX = centreX - (centreX - mapX) * ratio;
   mapY = centreY - (centreY - mapY) * ratio;
   drawMap();
@@ -60,6 +60,8 @@ function moveMap(x, y) {
 
 // Keyboard focus can reach a seat outside the current view. Bring it back inside.
 function keepSeatVisible(button) {
+  mapViewport.scrollLeft = 0;
+  mapViewport.scrollTop = 0;
   const viewport = mapViewport.getBoundingClientRect();
   const seat = button.getBoundingClientRect();
   const left = viewport.left + mapViewport.clientLeft + 8;
@@ -70,9 +72,6 @@ function keepSeatVisible(button) {
   else if (seat.right > right) mapX -= seat.right - right;
   if (seat.top < top) mapY += top - seat.top;
   else if (seat.bottom > bottom) mapY -= seat.bottom - bottom;
-  // Focusing a clipped element can make the browser scroll an overflow:hidden box.
-  mapViewport.scrollLeft = 0;
-  mapViewport.scrollTop = 0;
   drawMap();
 }
 
@@ -84,6 +83,68 @@ document.getElementById("move-left").addEventListener("click", () => moveMap(-60
 document.getElementById("move-right").addEventListener("click", () => moveMap(60, 0));
 document.getElementById("reset-view").addEventListener("click", resetView);
 
+// Zoom around the pointer. Leave browser zoom shortcuts available.
+mapViewport.addEventListener("wheel", event => {
+  if (event.ctrlKey || event.metaKey || event.deltaY === 0) return;
+  event.preventDefault();
+  const bounds = mapViewport.getBoundingClientRect();
+  changeZoom(event.deltaY < 0 ? 0.15 : -0.15,
+    event.clientX - bounds.left - mapViewport.clientLeft,
+    event.clientY - bounds.top - mapViewport.clientTop);
+}, { passive: false });
+
+mapViewport.addEventListener("pointerdown", event => {
+  if (event.pointerType !== "mouse" || event.button !== 0 || !event.isPrimary) return;
+  ignoreDragClick = false;
+  drag = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false };
+});
+
+window.addEventListener("pointermove", event => {
+  if (!drag || event.pointerId !== drag.id) return;
+  const dx = event.clientX - drag.x;
+  const dy = event.clientY - drag.y;
+  // Small hand movements should still count as an ordinary seat click.
+  if (!drag.moved && Math.hypot(dx, dy) < 6) return;
+  if (!drag.moved) {
+    drag.moved = true;
+    drag.mapX = mapX;
+    drag.mapY = mapY;
+    mapViewport.setPointerCapture(drag.id);
+    mapViewport.classList.add("dragging");
+  }
+  mapX = drag.mapX + dx;
+  mapY = drag.mapY + dy;
+  drawMap();
+});
+
+function finishDrag() {
+  if (!drag) return;
+  const previous = drag;
+  drag = null;
+  ignoreDragClick = previous.moved;
+  mapViewport.classList.remove("dragging");
+  if (mapViewport.hasPointerCapture(previous.id)) mapViewport.releasePointerCapture(previous.id);
+}
+
+window.addEventListener("pointerup", event => {
+  if (drag && event.pointerId === drag.id) finishDrag();
+});
+window.addEventListener("pointercancel", finishDrag);
+window.addEventListener("blur", finishDrag);
+mapViewport.addEventListener("lostpointercapture", finishDrag);
+mapViewport.addEventListener("pointerleave", () => {
+  if (drag && !drag.moved) finishDrag();
+});
+mapViewport.addEventListener("click", event => {
+  if (!ignoreDragClick || event.detail === 0) return;
+  ignoreDragClick = false;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+}, true);
+
 // Fit the complete venue again when the viewport changes, including phone rotation.
-new ResizeObserver(resetView).observe(mapViewport);
+new ResizeObserver(() => {
+  finishDrag();
+  resetView();
+}).observe(mapViewport);
 resetView();

@@ -1,6 +1,8 @@
-# Navigation and cart checks
+# Final application checks
 
-Checked on 26 October 2026 in Chrome, including mobile/touch emulation. Twenty-five browser checks passed. Desktop and phone-width screenshots were also reviewed. The earlier seat-inspection checks were completed on 20 October.
+Checked on 6 November 2026 in Chrome 155.0.8059.86: 33 browser checks passed after the final mouse-navigation fixes. This includes mobile/touch emulation, five viewport widths and a full-cart stress test. Desktop and phone screenshots were reviewed. Earlier milestones passed 16 checks on 20 October and 25 checks on 26 October.
+
+Safari 26.6 was also checked directly for seat inspection, explicit adding, duplicate prevention, reload restoration, removal, unavailable-seat blocking, navigation buttons, wheel zoom and mouse dragging. This was a manual smoke check, not the full automated suite. Safari testing found a drag issue when pointer events reported a zero button mask. Drag tracking now follows the pointer from press to release/cancel, and a WebKit user-selection rule prevents text selection during panning. The corrected drag visibly moved the venue.
 
 ## Checks to repeat
 
@@ -27,8 +29,20 @@ Checked on 26 October 2026 in Chrome, including mobile/touch emulation. Twenty-f
 
 Every generated seat's identifying label, price and availability was also compared with its venue record. Each of the five viewport widths was checked separately.
 
-## Still to cover in the final stage
+## Additional final-stage checks
 
-- Safari and Firefox, real-device touch testing and the final responsive review.
-- Optional mouse-wheel zoom and dragging, if implemented.
-- The complete demonstration flow and final submission materials.
+1. Wheel zoom stays anchored to the pointer and leaves inspection and cart contents unchanged.
+2. Repeated wheel events stop at the zoom limits. Ctrl/Command wheel is left to browser zoom; the required buttons continue working after mouse navigation.
+3. Wheel movement over the map zooms without scrolling the page; scrolling outside the map still moves the page.
+4. Dragging from a seat pans without inspecting or adding it. An ordinary click immediately afterwards still inspects correctly.
+5. Small mouse movements still count as a click; right-button gestures do not pan.
+6. Releasing a drag outside the map ends it. Keyboard inspection continues to work afterwards.
+7. Native Tab focus brings the active seat back into the zoomed map.
+8. Add all 262 available seats, verify the calculated total, reload to restore them, then remove every ticket. The cart and map return to the empty state.
+
+## Coverage limits
+
+- Firefox was not tested. Downloading the additional automated browser engines was too slow to finish; no pass is claimed for them.
+- Touch checks used emulation, not a physical phone or tablet.
+- Browser storage must be enabled for persistence. Use the same origin and browser; different addresses or ports have separate carts. The visible warning covers blocked storage.
+- The recorded video, OneDrive subtitles, public video access and final report remain separate submission checks in `requirements.md`.

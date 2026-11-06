@@ -31,14 +31,26 @@ A separate functional prototype was explored during planning. This repository st
 - Added warnings for damaged or blocked storage and cart synchronization between open tabs.
 - Passed 25 browser checks covering the existing seat data and inspection, cart actions, persistence, navigation, keyboard use, five screen widths and emulated touch. Reviewed desktop and phone screenshots.
 
-## Next working session
+## 6 November 2026 - integration and final quality
 
-- Complete the final browser, device and responsive checks.
-- Consider optional wheel zoom and mouse dragging.
-- Prepare and record the demonstration, then finish the report with the final commit reference.
+- Re-read and checked both assignment documents against the implementation and submission evidence.
+- Added pointer-centred mouse-wheel zoom and left-button dragging. Kept all seven required buttons and prevented a drag from inspecting a seat.
+- Added a movement threshold, pointer capture and release/cancel handling. Corrected Safari drag handling after a direct browser check and prevented text selection while panning.
+- Removed the in-progress banner and development plan from the booking page; kept development notes in the documentation.
+- Passed 33 Chrome checks, including all available seats in one cart, storage edge cases, mouse and keyboard navigation, five viewport widths and touch emulation.
+- Reviewed desktop and phone screenshots and carried out a manual Safari smoke check. Firefox and physical-device testing are not claimed.
+- Confirmed public repository access and documented the weekly commit shortfall.
+- Prepared a requirement checklist and a timed recording guide. The separate report draft must identify this final source commit and still needs the public video link.
+
+## Remaining submission work
+
+- Record the personally narrated demonstration and upload it to OneDrive.
+- Confirm automatic subtitles have generated and the video link is publicly accessible.
+- Add the video URL to the report, verify the exact final source hash and screenshot, and submit all three required components.
+- Discuss the incomplete weekly commit evidence with the instructor.
 
 ## Submission reminders
 
 The brief requires genuine development across four weeks, with at least three meaningful commits each week. Work started late, and the deadline is 8 November 2026. Clarify the late-start requirement with the instructor. Keep the real dates and commit only genuine changes.
 
-The final submission needs a public repository, a personally narrated 4-6 minute demonstration on OneDrive with generated automatic subtitles, and a 1-2 page PDF report identifying the exact final commit. None of those final-version claims should be made for this starting version.
+The final submission needs a public repository, a personally narrated 4-6 minute demonstration on OneDrive with generated automatic subtitles, and a 1-2 page PDF report identifying the exact final commit. Source completion alone does not complete those submission steps.

@@ -6,7 +6,7 @@ An interactive ticket-selection website for Web & Mobile I. I chose a theatre wi
 
 ## Current stage
 
-**Navigation and cart - 26 October 2026.** This is the third development stage. Final testing, the demonstration and the report are still to come.
+**Integration and final quality - 6 November 2026.** The fourth source milestone includes the required ticket-selection features, mouse navigation and the final requirement review. The demonstration video and completed report are separate submission steps; see `docs/requirements.md` for the outstanding items.
 
 What is included:
 
@@ -17,6 +17,7 @@ What is included:
 - Explicit ADD TO CART, duplicate prevention, removal, individual prices and a running total.
 - Cart IDs saved in localStorage and restored on reload, including the in-cart map state.
 - Keyboard navigation between seats and a link to the details panel on smaller screens.
+- Mouse-wheel zoom and left-button dragging, without selecting a seat after a drag.
 
 Clicking a seat only inspects it. Use ADD TO CART in the details panel to select a ticket. Unavailable seats can be inspected, but cannot be added. This is a browser demonstration and does not reserve real tickets.
 
@@ -40,6 +41,8 @@ Then open `http://localhost:8000`. Keep using the same browser and address to re
 
 Each row contains 24 seats. Aisles are after seats 8 and 16. The data marks 26 seats unavailable. Prices are stored in pence. Row I is skipped to avoid confusion with the number 1.
 
+![The generated Aster Theatre venue](docs/venue.png)
+
 ## Files
 
 - `index.html`: page layout, controls and cart panel.
@@ -50,10 +53,14 @@ Each row contains 24 seats. Aisles are after seats 8 and 16. The data marks 26 s
 - `assets/venue-plan.svg`: original layout sketch, kept as a design reference.
 - `docs/progress.md`: actual progress and next steps.
 - `docs/testing.md`: checks for the current stage.
+- `docs/requirements.md`: requirement-by-requirement review and submission status.
+- `docs/demo-guide.md`: the required 4-6 minute recording sequence and upload checks.
 
 ## Using the map and cart
 
 The map starts with the complete venue fitted inside its frame. Zoom In enlarges it in 25% steps, up to 400% of the fitted view. The direction buttons move the map; movement is limited so the venue stays reachable. Reset/Center View shows the complete venue again. Resizing the window or rotating a phone also refits the map.
+
+With a mouse, scroll over the map to zoom around the pointer in 15% steps, or hold the left button and drag to pan. A small movement still counts as a click; a drag does not inspect a seat. The seven navigation buttons remain available, including on touch screens. Ctrl/Command plus the wheel is left to the browser's zoom handling.
 
 Click a seat to inspect it, then use ADD TO CART. Added seats show a tick. The inspection outline stays separate from the cart state, so inspecting another seat does not remove any tickets. Use Remove beside a ticket to return it to the available state and update the total.
 
@@ -61,10 +68,10 @@ With a keyboard, Tab into the seats, use the arrow keys to move, and press Enter
 
 Only seat IDs and a format version are saved under `wm1-aster-theatre-cart`. Prices and availability come from the current venue data. Restoration ignores duplicate, unknown and unavailable IDs. A damaged saved value or blocked browser storage produces a visible warning. The cart can still be used during that visit if saving is blocked. Open tabs using the same address also receive cart updates.
 
-## Next steps
+## Submission status
 
-1. Complete the final browser, device and responsiveness review.
-2. Consider optional mouse-wheel zoom and dragging.
-3. Record the demonstration and finish the PDF report with the final commit reference.
+The repository is public and contains the runnable source. The source has been tested; exact coverage is in `docs/testing.md`.
+
+Still required: the personally narrated OneDrive demonstration, generated automatic subtitles, a checked public video link, and the final report containing that link and the exact submitted commit. The existing history does not meet the required three meaningful commits per week across four weeks. This is documented in `docs/requirements.md` and needs discussion with the instructor.
 
 The assignment deadline is 8 November 2026. Commits should record actual work when it happens; they should not be backdated or made only to increase the count.
